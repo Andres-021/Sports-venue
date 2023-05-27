@@ -32,25 +32,26 @@ public class SoccerController {
         int success = 0;
         // Asignamos la consulta
         query = "INSERT INTO SOCCER("
-                + "name1, name2, lastName1, lastName2, age, speed, positionn, goals_score, assists, pass"
+                + "cod, name1, name2, lastName1, lastName2, age, speed, positionn, goals_score, assists, pass"
               + ") "
-              + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+              + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         
         try {
             // Pasamos el query
             PreparedStatement pstmt = conn.prepareStatement(query);
             
             // ASignamos los valores de los signos eje: VALUES(?,?)
-            pstmt.setString(1, soccer.getName1());
-            pstmt.setString(2, soccer.getName2());
-            pstmt.setString(3, soccer.getLastName1());
-            pstmt.setString(4, soccer.getLastName2());
-            pstmt.setInt(5, soccer.getAge());
-            pstmt.setInt(6, soccer.getSpeed());
-            pstmt.setString(7, soccer.getPosition());
-            pstmt.setInt(8, soccer.getGoals_score());
-            pstmt.setInt(9, soccer.getAssists());
-            pstmt.setInt(10, soccer.getPass());
+            pstmt.setInt(1, soccer.getCod());
+            pstmt.setString(2, soccer.getName1());
+            pstmt.setString(3, soccer.getName2());
+            pstmt.setString(4, soccer.getLastName1());
+            pstmt.setString(5, soccer.getLastName2());
+            pstmt.setInt(6, soccer.getAge());
+            pstmt.setInt(7, soccer.getSpeed());
+            pstmt.setString(8, soccer.getPosition());
+            pstmt.setInt(9, soccer.getGoals_score());
+            pstmt.setInt(10, soccer.getAssists());
+            pstmt.setInt(11, soccer.getPass());
             // Ejecutamos el query
             success = pstmt.executeUpdate(); // Este metodo se usa cuando son consultas de INSERT 
             if(success <= 0){
@@ -79,7 +80,7 @@ public class SoccerController {
         List<Object> data = new ArrayList<>();
         Response res = null;
         // Creamos una consulta con el id para filtrar en la tabla
-        query = "SELECT * FROM SOCCER WHERE id = ?";
+        query = "SELECT * FROM SOCCER WHERE cod = ?";
         
         try {
             PreparedStatement pstmt = conn.prepareStatement(query);
@@ -98,6 +99,7 @@ public class SoccerController {
                 //"name1, name2, lastName1, lastName2, age, speed, position, goals_score, assists, pass"
                 // Creamos el modelo para guardarlo en una lista y retornarlo
                 Soccer soccer = new Soccer(
+                    resultSet.getInt("cod"),
                     resultSet.getString("name1"),
                     resultSet.getString("name2"),
                     resultSet.getString("lastName1"),
@@ -154,6 +156,7 @@ public class SoccerController {
                 //"name1, name2, lastName1, lastName2, age, speed, position, goals_score, assists, pass"
                 // Creamos el modelo para guardarlo en una lista y retornarlo
                 Soccer soccer = new Soccer(
+                    resultSet.getInt("cod"),
                     resultSet.getString("name1"),
                     resultSet.getString("name2"),
                     resultSet.getString("lastName1"),
@@ -191,7 +194,7 @@ public class SoccerController {
         // Logica de select a la base de datos
         Response res = null;
         int success = 0;
-        query = "DELETE FROM SOCCER WHERE id = ?";
+        query = "DELETE FROM SOCCER WHERE cod = ?";
         try {
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, id);
