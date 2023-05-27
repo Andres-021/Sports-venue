@@ -23,7 +23,6 @@ public class Response {
         this.message = message;
     }
 
-
     public Response(boolean success, String message, List<Object> list) {
         this.success = success;
         this.message = message;

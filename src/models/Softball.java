@@ -13,6 +13,7 @@ public class Softball extends Person{
     private int pitching = 0; // lanzamiento
     
     public Softball (
+            int cod,
             String name1,
             String name2,
             String lastName1,
@@ -23,7 +24,7 @@ public class Softball extends Person{
             int batting,
             int pitching
     ){
-        super(name1,name2, lastName1, lastName2, age, speed, position);
+        super(cod, name1, name2, lastName1, lastName2, age, speed, position);
         this.batting = batting;
         this.pitching = pitching;
     }

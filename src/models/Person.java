@@ -9,6 +9,7 @@ package models;
  * @author andre
  */
 public class Person {
+    private int cod = 0;
     private String name1 = "";
     private String name2 = "";
     private String lastName1 = "";
@@ -19,6 +20,7 @@ public class Person {
     
     // CONSTRUCTOR
     public Person (
+            int cod,
             String name1, 
             String name2, 
             String lastName1, 
@@ -27,6 +29,7 @@ public class Person {
             int speed,
             String position
     ){
+        this.cod = cod;
         this.name1 = name1;
         this.name2 = name2;
         this.lastName1 = lastName1;
@@ -35,6 +38,15 @@ public class Person {
         this.speed = speed;
         this.position = position;
     }
+
+    public int getCod() {
+        return cod;
+    }
+
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+    
 
     public String getName1() {
         return name1;

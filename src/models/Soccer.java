@@ -14,6 +14,7 @@ public class Soccer extends Person{
     private int pass = 0; // Pase
     
     public Soccer (
+        int cod,
         String name1, 
         String name2, 
         String lastName1, 
@@ -25,7 +26,7 @@ public class Soccer extends Person{
         int assists,
         int pass
     ){
-        super(name1,name2, lastName1, lastName2, age, speed, position);
+        super(cod, name1, name2, lastName1, lastName2, age, speed, position);
         this.goals_score = goals_score;
         this.assists = assists;
         this.pass = pass;
