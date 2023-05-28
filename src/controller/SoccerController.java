@@ -31,14 +31,29 @@ public class SoccerController {
         Response res = null;
         int success = 0;
         // Asignamos la consulta
+        String query_validate_cod = "SELECT cod FROM SOCCER WHERE cod = ?";
+        
         query = "INSERT INTO SOCCER("
                 + "cod, name1, name2, lastName1, lastName2, age, speed, positionn, goals_score, assists, pass"
               + ") "
               + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         
         try {
+            PreparedStatement pstmt;
+            // Consultamos si el codigo existe
+//            res = this.getById(soccer.getCod());
+//            if(res.isSuccess()){
+            pstmt = conn.prepareStatement(query_validate_cod);
+            pstmt.setInt(1, soccer.getCod());
+            
+            ResultSet resultSet = pstmt.executeQuery();
+            if(resultSet.next()){
+                res = new Response(false, "Ya se encuentra el codigo que intenta agregar");
+                return res;
+            }
+            
             // Pasamos el query
-            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt = conn.prepareStatement(query);
             
             // ASignamos los valores de los signos eje: VALUES(?,?)
             pstmt.setInt(1, soccer.getCod());
@@ -61,6 +76,7 @@ public class SoccerController {
                 return res;
             }
             pstmt.close();
+            resultSet.close();
         
             // Esto para mostrar informacion al usuario
             res = new Response(true, "El futbolista se ha creado exitosamente");

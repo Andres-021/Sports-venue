@@ -30,6 +30,7 @@ public class SoftballController {
         // Logica de inser a la base de datos
         Response res = null;
         int success = 0;
+        String query_validate_cod= "SELECT cod FROM SOFTBALL WHERE cod = ?";
         // Asignamos la consulta
         query = "INSERT INTO SOFTBALL("
                 + "cod, name1, name2, lastName1, lastName2, age, speed, positionn, batting, pitching"
@@ -37,8 +38,22 @@ public class SoftballController {
               + "VALUES(?,?,?,?,?,?,?,?,?,?)";
         
         try {
+            PreparedStatement pstmt;
+            // Consultamos si el codigo existe
+//            res = this.getById(soccer.getCod());
+//            if(res.isSuccess()){
+            System.out.println(softball.getCod());
+            pstmt = conn.prepareStatement(query_validate_cod);
+            pstmt.setInt(1, softball.getCod());
+            
+            ResultSet resultSet = pstmt.executeQuery();
+            if(resultSet.next()){
+                res = new Response(false, "Ya se encuentra el codigo que intenta agregar");
+                return res;
+            }
+            
             // Pasamos el query
-            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt = conn.prepareStatement(query);
             
             // ASignamos los valores de los signos eje: VALUES(?,?)
             pstmt.setInt(1, softball.getCod());
@@ -60,6 +75,7 @@ public class SoftballController {
                 return res;
             }
             pstmt.close();
+            resultSet.close();
         
             // Esto para mostrar informacion al usuario
             res = new Response(true, "El softbolista se ha creado exitosamente");

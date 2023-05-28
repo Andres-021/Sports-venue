@@ -16,7 +16,6 @@ public class Response {
     private boolean success;
     private String message;
     private List<Object> list = new ArrayList<>();
-    //private [] obj;
     
     public Response(boolean success, String message) {
         this.success = success;
